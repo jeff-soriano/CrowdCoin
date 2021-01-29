@@ -1,5 +1,6 @@
 import 'semantic-ui-css/semantic.min.css'
 import factory from '../ethereum/factory';
+import Layout from '../components/Layout';
 import { Card, Button } from 'semantic-ui-react'
 
 export default function CampaignIndex({ campaigns }) {
@@ -16,11 +17,13 @@ export default function CampaignIndex({ campaigns }) {
     }
 
     return (
-        <div>
-            <h3>Open Campaigns</h3>
-            {renderCampaigns()}
-            <Button content="Create Campaign" icon="add circle" primary />
-        </div>
+        <Layout>
+            <div>
+                <h3>Open Campaigns</h3>
+                {renderCampaigns()}
+                <Button content="Create Campaign" icon="add circle" primary />
+            </div>
+        </Layout>
     );
 }
 
