@@ -3,7 +3,7 @@ import Header from './Header';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 
-export default props => {
+export default function Layout(props) {
     return (
         <Container>
             <Header />

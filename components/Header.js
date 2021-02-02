@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 
-export default () => {
+export default function Header() {
     return (
         <Menu style={{ marginTop: '10px' }}>
             <Menu.Item>
