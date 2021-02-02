@@ -20,8 +20,8 @@ export default function CampaignIndex({ campaigns }) {
         <Layout>
             <div>
                 <h3>Open Campaigns</h3>
+                <Button floated='right' content="Create Campaign" icon="add circle" primary />
                 {renderCampaigns()}
-                <Button content="Create Campaign" icon="add circle" primary />
             </div>
         </Layout>
     );
