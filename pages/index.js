@@ -9,7 +9,10 @@ export default function CampaignIndex({ campaigns }) {
         const items = campaigns.map(campaign => {
             return {
                 header: campaign,
-                description: <a>View Campaign</a>,
+                description: (
+                    <Link route={`/campaigns/${campaign}`}>
+                        <a>View Campaign</a>
+                    </Link>),
                 fluid: true
             }
         });
