@@ -78,7 +78,6 @@ contract Campaign {
     )
         public
         restrictedToManager
-        requestValueLessThanBalance(value)
         returns (uint256 requestId)
     {
         requestId = numRequests++;
