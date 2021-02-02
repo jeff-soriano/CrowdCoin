@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Layout from '../../components/Layout';
 
 export default function CampaignShow() {
     return (
-        <h1>Campaign show!</h1>
+        <Layout>
+            <h1>Campaign show!</h1>
+        </Layout>
     );
 }
