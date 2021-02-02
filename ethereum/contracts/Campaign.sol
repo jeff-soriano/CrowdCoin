@@ -75,11 +75,7 @@ contract Campaign {
         string memory description,
         uint256 value,
         address recipient
-    )
-        public
-        restrictedToManager
-        returns (uint256 requestId)
-    {
+    ) public restrictedToManager returns (uint256 requestId) {
         requestId = numRequests++;
         Request storage request = requests[requestId];
 
@@ -124,5 +120,25 @@ contract Campaign {
 
         payable(request.recipient).transfer(request.value);
         request.complete = true;
+    }
+
+    function getSummary()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            address
+        )
+    {
+        return (
+            minimumContribution,
+            address(this).balance,
+            numRequests,
+            numApprovers,
+            manager
+        );
     }
 }
