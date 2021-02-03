@@ -47,7 +47,7 @@ export default function RequestIndex({ address, requests, numRequests, numApprov
             <h1>Requests</h1>
             <Link route={`/campaigns/${address}/requests/new`}>
                 <a>
-                    <Button primary>Add Request</Button>
+                    <Button primary floated='right' style={{ marginBottom: 10 }}>Add Request</Button>
                 </a>
             </Link>
             {renderTable()}
