@@ -51,6 +51,7 @@ export default function RequestIndex({ address, requests, numRequests, numApprov
                 </a>
             </Link>
             {renderTable()}
+            <div>Found {numRequests} requests.</div>
         </Layout>
     );
 };
