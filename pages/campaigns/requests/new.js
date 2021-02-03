@@ -9,9 +9,14 @@ export default function RequestNew({ address }) {
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
     const [recipientAddress, setRecipientAddress] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     async function onSubmit(event) {
         event.preventDefault();
+
+        setErrorMessage('');
+        setLoading(true);
         try {
             const campaign = await Campaign(address);
             const accounts = await web3.eth.getAccounts();
@@ -22,15 +27,21 @@ export default function RequestNew({ address }) {
                     recipientAddress
                 )
                 .send({ from: accounts[0] });
+
+            Router.pushRoute(`/campaigns/${address}/requests`)
         } catch (err) {
-            console.log(err.message);
+            setErrorMessage(err.message);
         }
+        setLoading(false);
     }
 
     return (
         <Layout>
+            <Link route={`/campaigns/${address}/requests`}>
+                View requests
+            </Link>
             <h1>Create a Request</h1>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} error={!!errorMessage}>
                 <Form.Field>
                     <label>Description</label>
                     <Input
@@ -52,7 +63,8 @@ export default function RequestNew({ address }) {
                         onChange={event => setRecipientAddress(event.target.value)} />
                 </Form.Field>
 
-                <Button primary>Create request!</Button>
+                <Message error header="Oops!" content={errorMessage} />
+                <Button primary loading={loading}>Create request!</Button>
             </Form>
         </Layout>
     );
