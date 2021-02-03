@@ -6,10 +6,14 @@ import { Router } from '../routes';
 
 export default function ContributeForm({ address }) {
     const [value, setValue] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     async function onSubmit(event) {
         event.preventDefault();
 
+        setErrorMessage('');
+        setLoading(true);
         try {
             const campaign = await Campaign(address);
             const accounts = await web3.eth.getAccounts();
@@ -20,12 +24,14 @@ export default function ContributeForm({ address }) {
 
             Router.replaceRoute(`/campaigns/${address}`);
         } catch (err) {
-            console.log(err);
+            setErrorMessage(err.message);
         }
+        setLoading(false);
+        setValue('');
     }
 
     return (
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} error={!!errorMessage}>
             <Form.Field>
                 <label>Amount to contribute</label>
                 <Input
@@ -35,11 +41,10 @@ export default function ContributeForm({ address }) {
                     onChange={event => setValue(event.target.value)}
                 />
             </Form.Field>
-            <Form.Field>
-                <Button primary>
-                    Contribute!
-                </Button>
-            </Form.Field>
+            <Message error header="Oops!" content={errorMessage} />
+            <Button primary loading={loading}>
+                Contribute!
+            </Button>
         </Form>
     );
 }
