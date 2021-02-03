@@ -1,11 +1,53 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
+import { Card } from 'semantic-ui-react';
 
-export default function CampaignShow() {
+export default function CampaignShow({
+    minimumContribution,
+    balance,
+    numRequests,
+    numApprovers,
+    manager }) {
+
+    function renderCards() {
+        const items = [
+            {
+                header: manager,
+                meta: 'Address of Manager',
+                description: 'The manager created this campaign and ' +
+                    'can create requests to withdraw money',
+                style: { overflowWrap: 'break-word' }
+            },
+            {
+                header: minimumContribution,
+                meta: 'Minimum Contribution (wei)',
+                description: 'You must contribute at least this much wei to become an approver'
+            },
+            {
+                header: numRequests,
+                meta: 'Number of Requests',
+                description: 'A request tries to withdraw money from the contract. Requests must be approved'
+            },
+            {
+                header: numApprovers,
+                meta: 'Number of Approvers',
+                description: 'The number of people who have already donated to this campaign'
+            },
+            {
+                header: web3.utils.fromWei(balance, 'ether'),
+                meta: 'Campaign Balance (ether)',
+                description: 'The balance is how much money this campaign has left to spend'
+            }
+        ];
+
+        return <Card.Group items={items} />;
+    }
     return (
         <Layout>
             <h1>Campaign show!</h1>
+            {renderCards()}
         </Layout>
     );
 }
