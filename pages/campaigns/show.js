@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import ContributForm from '../../components/ContributeForm';
+import ContributeForm from '../../components/ContributeForm';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 import { Card, Grid } from 'semantic-ui-react';
 
 export default function CampaignShow({
+    address,
     minimumContribution,
     balance,
     numRequests,
@@ -53,7 +54,7 @@ export default function CampaignShow({
                     {renderCards()}
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <ContributForm />
+                    <ContributeForm address={address} />
                 </Grid.Column>
             </Grid>
         </Layout>
@@ -65,6 +66,7 @@ CampaignShow.getInitialProps = async (ctx) => {
     const summary = await campaign.methods.getSummary().call();
 
     return {
+        address: ctx.query.address,
         minimumContribution: summary[0],
         balance: summary[1],
         numRequests: summary[2],
