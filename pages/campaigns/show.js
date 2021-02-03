@@ -3,7 +3,8 @@ import Layout from '../../components/Layout';
 import ContributeForm from '../../components/ContributeForm';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
+import { Link } from '../../routes';
 
 export default function CampaignShow({
     address,
@@ -52,6 +53,11 @@ export default function CampaignShow({
             <Grid>
                 <Grid.Column width={10}>
                     {renderCards()}
+                    <Link route={`/campaigns/${address}/requests`}>
+                        <a>
+                            <Button primary>View Requests</Button>
+                        </a>
+                    </Link>
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <ContributeForm address={address} />
