@@ -10,15 +10,32 @@ export default function RequestNew({ address }) {
     const [description, setDescription] = useState('');
     const [recipientAddress, setRecipientAddress] = useState('');
 
+    async function onSubmit(event) {
+        event.preventDefault();
+        try {
+            const campaign = await Campaign(address);
+            const accounts = await web3.eth.getAccounts();
+            await campaign.methods
+                .createRequest(
+                    description,
+                    web3.utils.toWei(value, 'ether'),
+                    recipientAddress
+                )
+                .send({ from: accounts[0] });
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
     return (
         <Layout>
             <h1>Create a Request</h1>
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <Form.Field>
                     <label>Description</label>
                     <Input
                         value={description}
-                        onChange={event => setDescription(event.target.description)}
+                        onChange={event => setDescription(event.target.value)}
                     />
                 </Form.Field>
                 <Form.Field>
