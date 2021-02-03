@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import Campaign from '../ethereum/campaign';
+import { Router } from '../routes';
 
 export default function RequestRow({ id, request, address, numApprovers }) {
 
@@ -20,14 +21,26 @@ export default function RequestRow({ id, request, address, numApprovers }) {
                     {request.complete ?
                         null :
                         (
-                            <Button color='green' basic onClick={onApprove}>Approve</Button>
+                            <Button
+                                color='green'
+                                basic
+                                onClick={onApprove}
+                            >
+                                Approve
+                            </Button>
                         )}
                 </Cell>
                 <Cell>
                     {request.complete ?
                         null :
                         (
-                            <Button color='teal' basic onClick={onFinalize}>Finalize</Button>
+                            <Button
+                                color='teal'
+                                basic
+                                onClick={onFinalize}
+                            >
+                                Finalize
+                            </Button>
                         )}
                 </Cell>
             </Row>
@@ -41,6 +54,8 @@ export default function RequestRow({ id, request, address, numApprovers }) {
         await campaign.methods.approveRequest(id).send({
             from: accounts[0]
         });
+
+        Router.replaceRoute(`/campaigns/${address}/requests`);
     }
 
     async function onFinalize() {
@@ -50,6 +65,8 @@ export default function RequestRow({ id, request, address, numApprovers }) {
         await campaign.methods.finalizeRequest(id).send({
             from: accounts[0]
         });
+
+        Router.replaceRoute(`/campaigns/${address}/requests`);
     }
 
     return (
