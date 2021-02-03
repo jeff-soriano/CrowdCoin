@@ -1,8 +1,9 @@
 import React from 'react';
 import Layout from '../../components/Layout';
+import ContributForm from '../../components/ContributeForm';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 
 export default function CampaignShow({
     minimumContribution,
@@ -46,8 +47,15 @@ export default function CampaignShow({
     }
     return (
         <Layout>
-            <h1>Campaign show!</h1>
-            {renderCards()}
+            <h1>Campaign view</h1>
+            <Grid>
+                <Grid.Column width={10}>
+                    {renderCards()}
+                </Grid.Column>
+                <Grid.Column width={6}>
+                    <ContributForm />
+                </Grid.Column>
+            </Grid>
         </Layout>
     );
 }
