@@ -10,6 +10,8 @@ export default function ContributForm() {
                     label='ether'
                     labelPosition='right'
                 />
+            </Form.Field>
+            <Form.Field>
                 <Button primary>
                     Contribute!
                 </Button>
